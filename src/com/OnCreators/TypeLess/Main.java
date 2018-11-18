@@ -1,6 +1,7 @@
 package com.OnCreators.TypeLess;
 
 import java.lang.*;
+import java.util.*;
 
 public class Main {
 
@@ -11,11 +12,12 @@ public class Main {
     public static final float FLT = 1.5f;
     public static final double DBL = 1.59;
 
-    public static void print(String s) {
-        System.out.print(s);
-    }
-
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Var obj1 = new Var("Anirban");
+        Perform.print(obj1);
+        obj1.set(4);
+        Perform.print(obj1);
+        obj1.convertTo("b");
+        Perform.print(obj1);
     }
 }
