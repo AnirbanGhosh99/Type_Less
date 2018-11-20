@@ -60,52 +60,52 @@ public class Const {
     public Object get() {
         return value;
     }
-    public String get(String s) {
+    public String getString() {
         if (type==0) {
             return (String) value;
         } else {
             System.out.print("TypeMismatchException: Contained datatype is  " + getTypeString(type));
-            return s;
+            return Perform.STR;
         }
     }
-    public int get(int i) {
+    public int getInt() {
         if (type==1) {
             return (int) value;
         } else {
             System.out.print("TypeMismatchException: Contained datatype is  " + getTypeString(type));
-            return i;
+            return Perform.INT;
         }
     }
-    public char get(char c) {
+    public char getChar() {
         if (type==2) {
             return (char) value;
         } else {
             System.out.print("TypeMismatchException: Contained datatype is  " + getTypeString(type));
-            return c;
+            return Perform.CHR;
         }
     }
-    public float get(float f) {
+    public float getFloat() {
         if (type==3) {
             return (float) value;
         } else {
             System.out.print("TypeMismatchException: Contained datatype is  " + getTypeString(type));
-            return f;
+            return Perform.FLT;
         }
     }
-    public double get(double d) {
+    public double getDouble() {
         if (type==4) {
             return (double) value;
         } else {
             System.out.print("TypeMismatchException: Contained datatype is  " + getTypeString(type));
-            return d;
+            return Perform.DBL;
         }
     }
-    public Boolean get(Boolean d) {
+    public Boolean getBoolean() {
         if (type==5) {
             return (Boolean) value;
         } else {
             System.out.print("TypeMismatchException: Contained datatype is  " + getTypeString(type));
-            return d;
+            return Perform.BLN;
         }
     }
 

@@ -63,52 +63,52 @@ public class Var {
     public Object get() {
         return value;
     }
-    public String get(String s) {
+    public String getString() {
         if (type==0) {
             return (String) value;
         } else {
             System.out.print("TypeMismatchException: Contained datatype is  " + getTypeString(type));
-            return s;
+            return Perform.STR;
         }
     }
-    public int get(int i) {
+    public int getInt() {
         if (type==1) {
             return (int) value;
         } else {
             System.out.print("TypeMismatchException: Contained datatype is  " + getTypeString(type));
-            return i;
+            return Perform.INT;
         }
     }
-    public char get(char c) {
+    public char getChar() {
         if (type==2) {
             return (char) value;
         } else {
             System.out.print("TypeMismatchException: Contained datatype is  " + getTypeString(type));
-            return c;
+            return Perform.CHR;
         }
     }
-    public float get(float f) {
+    public float getFloat() {
         if (type==3) {
             return (float) value;
         } else {
             System.out.print("TypeMismatchException: Contained datatype is  " + getTypeString(type));
-            return f;
+            return Perform.FLT;
         }
     }
-    public double get(double d) {
+    public double getDouble() {
         if (type==4) {
             return (double) value;
         } else {
             System.out.print("TypeMismatchException: Contained datatype is  " + getTypeString(type));
-            return d;
+            return Perform.DBL;
         }
     }
-    public Boolean get(Boolean d) {
+    public Boolean getBoolean() {
         if (type==5) {
             return (Boolean) value;
         } else {
             System.out.print("TypeMismatchException: Contained datatype is  " + getTypeString(type));
-            return d;
+            return Perform.BLN;
         }
     }
 
@@ -139,171 +139,212 @@ public class Var {
     }
 
     // Convertors
+    public String toString() {
+        int Type = type;
+        try {
+            switch (type) {
+                case 1:
+                    value = String.valueOf((int) value);
+                    break;
+                case 2:
+                    value = String.valueOf((char) value);
+                    break;
+                case 3:
+                    value = String.valueOf((float) value);
+                    break;
+                case 4:
+                    value = String.valueOf((double) value);
+                    break;
+                case 5: {
+                    if ((Boolean) value) {
+                        value = "true";
+                    } else {
+                        value = "false";
+                    }
+                    break;
+                }
+            }
+            type = 0;
+        } catch (Exception e) {
+            type = Type;
+            System.out.println(e.toString());
+        }
+        return "";
+    }
+
+    public void toInt() {
+        int Type = type;
+        try {
+            switch (type) {
+                case 0:
+                    value = Integer.parseInt((String) value);
+                    break;
+                case 2:
+                    value = Integer.parseInt(String.valueOf((char) value));
+                    break;
+                case 3:
+                    value = (int) (float) value;
+                    break;
+                case 4:
+                    value = (int) (double) value;
+                    break;
+                case 5: {
+                    if ((Boolean) value) {
+                        value = 1;
+                    } else {
+                        value = 0;
+                    }
+                    break;
+                }
+            }
+            type = 1;
+        } catch (Exception e){
+            type = Type;
+            System.out.println(e.toString());
+        }
+    }
+
+    public void toFloat() {
+        int Type = type;
+        try {
+            switch (type) {
+                case 0:
+                    value = Float.parseFloat((String) value);
+                    break;
+                case 1:
+                    value = (float) (int) value;
+                    break;
+                case 2:
+                    value = Float.parseFloat(String.valueOf((char) value));
+                    break;
+                case 4:
+                    value = (float) (double) value;
+                    break;
+                case 5: {
+                    if ((Boolean) value) {
+                        value = 1.0f;
+                    } else {
+                        value = 0f;
+                    }
+                    break;
+                }
+            }
+            type = 3;
+        } catch (Exception e) {
+            type = Type;
+            System.out.println(e.toString());
+        }
+    }
+
+    public void toDouble() {
+        int Type = type;
+        try {
+            switch (type) {
+                case 0:
+                    value = Double.parseDouble((String) value);
+                    break;
+                case 1:
+                    value = (double) (int) value;
+                    break;
+                case 2:
+                    value = Double.parseDouble(String.valueOf((char) value));
+                    break;
+                case 3:
+                    value = (double) (float) value;
+                    break;
+                case 5: {
+                    if ((Boolean) value) {
+                        value = 1.0;
+                    } else {
+                        value = 0.0;
+                    }
+                    break;
+                }
+            }
+            type = 4;
+        } catch (Exception e) {
+            type = Type;
+            System.out.println(e.toString());
+        }
+    }
+
+    public void toChar() {
+        int Type = type;
+        try {
+            switch (type) {
+                case 0:
+                    value = ((String) value).charAt(0);
+                    break;
+                case 1:
+                    value = String.valueOf((int) value).charAt(0);
+                    break;
+                case 3:
+                    value = String.valueOf((float) value).charAt(0);
+                    break;
+                case 4:
+                    value = String.valueOf((double) value).charAt(0);
+                    break;
+                case 5: {
+                    if ((Boolean) value) {
+                        value = 't';
+                    } else {
+                        value = 'f';
+                    }
+                    break;
+                }
+            }
+            type = 2;
+        } catch (Exception e) {
+            type = Type;
+            System.out.println(e.toString());
+        }
+    }
+
+    public void toBoolean() {
+        int Type = type;
+        try {
+            switch (type) {
+                case 0: {
+                    value = value.equals("true");
+                    break;
+                }
+                case 1: {
+                    value = (((int) value) != 0);
+                    break;
+                }
+                case 3: {
+                    value = (((float) value) != 0);
+                    break;
+                }
+                case 4: {
+                    value = (((double) value) != 0);
+                    break;
+                }
+                case 2: {
+                    value = (((char) value) != 'f');
+                    break;
+                }
+            }
+            type = 5;
+        } catch (Exception e) {
+            type = Type;
+            System.out.println(e.toString());
+        }
+    }
+
     public void convertTo(String check) {
         if (type!=-1) {
-            int Type = type;
             try {
                 switch (check) {
-                    case "s": {
-                        switch (type) {
-                            case 1:
-                                value = String.valueOf((int) value);
-                                break;
-                            case 2:
-                                value = String.valueOf((char) value);
-                                break;
-                            case 3:
-                                value = String.valueOf((float) value);
-                                break;
-                            case 4:
-                                value = String.valueOf((double) value);
-                                break;
-                            case 5: {
-                                if ((Boolean) value) {
-                                    value = "true";
-                                } else {
-                                    value = "false";
-                                }
-                                break;
-                            }
-                        }
-                        type = 0;
-                        break;
-                    }
-                    case "i": {
-                        switch (type) {
-                            case 0:
-                                value = Integer.parseInt((String) value);
-                                break;
-                            case 2:
-                                value = Integer.parseInt(String.valueOf((char) value));
-                                break;
-                            case 3:
-                                value = (int) (float) value;
-                                break;
-                            case 4:
-                                value = (int) (double) value;
-                                break;
-                            case 5: {
-                                if ((Boolean) value) {
-                                    value = 1;
-                                } else {
-                                    value = 0;
-                                }
-                                break;
-                            }
-                        }
-                        type = 1;
-                        break;
-                    }
-                    case "f": {
-                        switch (type) {
-                            case 0:
-                                value = Float.parseFloat((String) value);
-                                break;
-                            case 1:
-                                value = (float) (int) value;
-                                break;
-                            case 2:
-                                value = Float.parseFloat(String.valueOf((char) value));
-                                break;
-                            case 4:
-                                value = (float) (double) value;
-                                break;
-                            case 5: {
-                                if ((Boolean) value) {
-                                    value = 1.0f;
-                                } else {
-                                    value = 0f;
-                                }
-                                break;
-                            }
-                        }
-                        type = 3;
-                        break;
-                    }
-                    case "d": {
-                        switch (type) {
-                            case 0:
-                                value = Double.parseDouble((String) value);
-                                break;
-                            case 1:
-                                value = (double) (int) value;
-                                break;
-                            case 2:
-                                value = Double.parseDouble(String.valueOf((char) value));
-                                break;
-                            case 3:
-                                value = (double) (float) value;
-                                break;
-                            case 5: {
-                                if ((Boolean) value) {
-                                    value = 1.0;
-                                } else {
-                                    value = 0.0;
-                                }
-                                break;
-                            }
-                        }
-                        type = 4;
-                        break;
-                    }
-                    case "c": {
-                        switch (type) {
-                            case 0:
-                                value = ((String) value).charAt(0);
-                                break;
-                            case 1:
-                                value = String.valueOf((int) value).charAt(0);
-                                break;
-                            case 3:
-                                value = String.valueOf((float) value).charAt(0);
-                                break;
-                            case 4:
-                                value = String.valueOf((double) value).charAt(0);
-                                break;
-                            case 5: {
-                                if ((Boolean) value) {
-                                    value = 't';
-                                } else {
-                                    value = 'f';
-                                }
-                                break;
-                            }
-                        }
-                        type = 2;
-                        break;
-                    }
-                    case "b": {
-                        switch (type) {
-                            case 0: {
-                                value = value.equals("true");
-                                break;
-                            }
-                            case 1: {
-                                value = (((int) value) != 0);
-                                break;
-                            }
-                            case 3: {
-                                value = (((float) value) != 0);
-                                break;
-                            }
-                            case 4: {
-                                value = (((double) value) != 0);
-                                break;
-                            }
-                            case 2: {
-                                value = (((char) value) != 'f');
-                                break;
-                            }
-                        }
-                        type = 5;
-                        break;
-                    }
+                    case "s": { String s = toString(); break; }
+                    case "i": { toInt(); break; }
+                    case "f": { toFloat(); break; }
+                    case "d": { toDouble(); break; }
+                    case "c": { toChar(); break; }
+                    case "b": { toBoolean(); break; }
                     default: System.out.println(check + " is not valid. \ns - String\ni - int/Integer\nc - char/character\nf - float\nd - double\nb - Boolean"); break;
                 }
             } catch (Exception e) {
-                type = Type;
                 System.out.print(e.toString());
             }
         } else {System.out.println("The variable has not been set to any value");}
