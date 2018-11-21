@@ -38,5 +38,8 @@ public class Main {
 
         System.out.println("\nNested List :");
         obj4.print();
+
+        System.out.println("\nList :");
+        obj3.print();
     }
 }
